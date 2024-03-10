@@ -1,18 +1,23 @@
 {
   "name": "tinyhub",
-  "private": true,
-  "version": "0.0.0",
+  "description": "A tiny personal dashboards to organize links via a central JSON config",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vermotr/tinyhub.git"
+  },
   "dependencies": {
-    "preact": "^10.19.5"
+    "preact": "^10.19.6"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.1",
     "vite": "^5.1.4"
-  }
+  },
+  "license": "MIT"
 }

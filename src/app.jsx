@@ -1,33 +1,71 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
-import './app.css'
+import { useState, useEffect } from "preact/hooks";
+
+import "./app.css";
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [config, setConfig] = useState([]);
+
+  useEffect(() => {
+    fetch("/config.json")
+      .then((response) => response.json())
+      .then((data) => setConfig(data));
+
+    if (config.title) {
+      document.title = config.title;
+    }
+  }, []);
+
+  const { title, description, sections } = config;
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
+    <div className="container">
+      <header className="header">
+        <h1 className="title">{title || "TinyHub"}</h1>
+        {description && <p className="description">{description}</p>}
+      </header>
+      <div className="categories">
+        {sections &&
+          sections.map((section) => (
+            <div className="category">
+              <h2 className="category-title">{section.name}</h2>
+              <ul className="services">
+                {section.services.map((service) => (
+                  <li>
+                    <a href={service.uri} className="service">
+                      <div
+                        className={
+                          service.iconAspect == "full"
+                            ? "icon-container full"
+                            : "icon-container"
+                        }
+                      >
+                        {service.icon ? (
+                          <img
+                            className="icon"
+                            src={service.icon}
+                            alt={service.name}
+                          />
+                        ) : (
+                          <span className="letter">{service.name[0]}</span>
+                        )}
+                      </div>
+                      <div className="service-name">
+                        <strong>{service.name}</strong>
+                        <br />
+                        <span>{service.description}</span>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
       </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <footer className="footer">
         <p>
-          Edit <code>src/app.jsx</code> and save to test HMR
+          <a href="https://github.com/vermotr/tinyhub">TinyHub</a> - v0.1.0
         </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
-    </>
-  )
+      </footer>
+    </div>
+  );
 }

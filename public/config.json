@@ -1,0 +1,16 @@
+{
+  "title": "TinyHub",
+  "description": "A tiny personal dashboards to organize links via a central JSON config",
+  "sections": [
+    {
+      "name": "Section",
+      "services": [
+        {
+          "name": "Service",
+          "uri": "https://github.com/vermotr/tinyhub",
+          "description": "Service description"
+        }
+      ]
+    }
+  ]
+}
